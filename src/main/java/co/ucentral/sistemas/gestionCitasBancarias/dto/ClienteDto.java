@@ -1,4 +1,4 @@
-package co.ucentral.sistemas.gestionCitasBancarias.entidades;
+package co.ucentral.sistemas.gestionCitasBancarias.dto;
 
 
 import jakarta.persistence.*;
@@ -10,21 +10,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "ClienteDto")
-@Table(name = "CLIENTES")
-public class Cliente {
+public class ClienteDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
     private long identificacion;
 
-    @Column
     private String nombre;
 
-    @Column
     private String correo;
 
-    @Column
     private String clave;
 
 

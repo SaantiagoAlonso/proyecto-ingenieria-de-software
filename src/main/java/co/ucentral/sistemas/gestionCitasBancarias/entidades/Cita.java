@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Cita")
+@Entity(name = "CitaDto")
 @Table(name = "CITAS")
 public class Cita {
 
@@ -25,7 +25,6 @@ public class Cita {
     @Column
     private int turno;
 
-    @Column
     @ManyToOne
     @JoinColumn(name = "id_sede")
     private Sede sede;
@@ -39,18 +38,15 @@ public class Cita {
     @Column
     private String servicio;
 
-    @Column
     @ManyToOne
     @JoinColumn(name = "identificacion")
     private Cliente id_cliente;
 
-    @Column
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "emp_id")
     private Empleado id_empleado;
 
     @Column
     private String estado;
-
 
 }

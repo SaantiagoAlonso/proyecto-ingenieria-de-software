@@ -8,14 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Empleado")
+@Entity(name = "EmpleadoDto")
 @Table(name = "EMPLEADOS")
 public class Empleado {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    private long emp_id;
 
     @Column
     private String nombre;
@@ -23,7 +22,7 @@ public class Empleado {
     @Column
     private String carreo;
 
-    @Column
+
     @ManyToOne
     @JoinColumn(name = "id_sede")
     private Sede sede;
