@@ -17,12 +17,11 @@ public class Sede {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SEDE")
     private long id_sede;
 
-    @Column(name ="SED_NOMBRE" )
+    @Column(name = "SED_NOMBRE")
     private String nombre;
 
     @Column
     private String direccion;
-
 
 
 }

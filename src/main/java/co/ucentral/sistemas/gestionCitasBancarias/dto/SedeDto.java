@@ -20,5 +20,4 @@ public class SedeDto {
     private String direccion;
 
 
-
 }

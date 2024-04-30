@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClienteDto {
 
-
     private long identificacion;
 
     private String nombre;

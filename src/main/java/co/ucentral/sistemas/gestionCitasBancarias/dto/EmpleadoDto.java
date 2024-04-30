@@ -10,13 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmpleadoDto {
 
-
     private long emp_id;
 
     private String nombre;
 
     private String carreo;
-
 
     private SedeDto sede;
 

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CitaDto {
 
-
     private long id;
 
     private int turno;

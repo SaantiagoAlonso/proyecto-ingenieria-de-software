@@ -5,9 +5,12 @@ import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+
 import java.io.Serializable;
 import java.util.List;
+
 import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundException;
+
 public class ServicioCliente implements Serializable {
     private ModelMapper modelMapper;
     private RepoCliente repoClien;
