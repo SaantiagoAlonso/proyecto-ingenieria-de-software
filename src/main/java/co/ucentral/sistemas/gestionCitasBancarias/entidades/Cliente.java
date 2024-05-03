@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column
     private long identificacion;
 
     @Column
