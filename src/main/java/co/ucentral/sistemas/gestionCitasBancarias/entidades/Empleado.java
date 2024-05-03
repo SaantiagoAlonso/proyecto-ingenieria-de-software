@@ -22,7 +22,6 @@ public class Empleado {
     @Column
     private String carreo;
 
-
     @ManyToOne
     @JoinColumn(name = "id_sede")
     private Sede sede;
