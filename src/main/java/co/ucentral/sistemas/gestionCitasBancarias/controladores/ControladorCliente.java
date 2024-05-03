@@ -1,5 +1,6 @@
 package co.ucentral.sistemas.gestionCitasBancarias.controladores;
 
+import co.ucentral.sistemas.gestionCitasBancarias.dto.CitaDto;
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCliente;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +23,14 @@ public class ControladorCliente {
         return "formulario-ingreso";
     }
 
+    //este metodo permite mostrar el formulario de registro
+    @GetMapping("/banco/ingresar")
+    public String formularioRegistro(Model model){
+        ClienteDto cliente = new ClienteDto();
+        model.addAttribute("cliente",cliente);
+        return "formulario-registro";
+    }
+
     //falta retornar correctamente la pagona html en caso de que el cliente se pueda registrar por el mometo retorna el inicio
     @PostMapping("/banco/registrar")
     public String registrarCliente(@ModelAttribute("cliente") ClienteDto cliente){
@@ -31,4 +40,22 @@ public class ControladorCliente {
         }
         return "index";
     }
+
+    @GetMapping("/cliente/solicitar_cita")
+    public String formSolicitarCita(Model model){
+        CitaDto cita = new CitaDto();
+        model.addAttribute("cita",cita);
+        return "solicitar-cita";
+    }
+
+    @PostMapping("/cliente/cita")
+    public String asignarCita(){
+
+
+    }
+
+
+
+
+
 }

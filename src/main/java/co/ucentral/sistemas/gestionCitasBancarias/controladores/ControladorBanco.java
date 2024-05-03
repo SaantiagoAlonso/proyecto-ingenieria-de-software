@@ -1,4 +1,4 @@
-package co.ucentral.sistemas.gestionCitasBancarias.controladores;
+/*package co.ucentral.sistemas.gestionCitasBancarias.controladores;
 
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioBanco;
@@ -36,3 +36,4 @@ public class ControladorBanco {
 
 
 }
+*/

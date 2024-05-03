@@ -1,4 +1,4 @@
-package co.ucentral.sistemas.gestionCitasBancarias.servicios;
+/*package co.ucentral.sistemas.gestionCitasBancarias.servicios;
 
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
@@ -30,6 +30,5 @@ public class ServicioBanco implements Operaciones {
             return 1;
         }
 
-
     }
-}
+}*/
