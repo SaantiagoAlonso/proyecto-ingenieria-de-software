@@ -8,33 +8,36 @@ import org.modelmapper.TypeToken;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServicioCliente implements Serializable {
-    private ModelMapper modelMapper;
-    private RepoCliente repoClien;
+    @Autowired
+    RepoCliente repoCliente;
 
-    public ClienteDto registrar(ClienteDto clienteDTO) {
-        Cliente clien = repoClien.save(modelMapper.map(clienteDTO, Cliente.class));
-        return modelMapper.map(clien, ClienteDto.class);
-    }
+    @Autowired
+    ModelMapper modelMapper;
 
-    public List<ClienteDto> obtenerClientes() {
-        TypeToken<List<ClienteDto>> typeToken = new TypeToken<>() {
-        };
-        return modelMapper.map(repoClien.findAll(), typeToken.getType());
-    }
+    public boolean inicioSesion(ClienteDto cliente) {
+        Cliente newCliente = modelMapper.map(cliente, Cliente.class);
+        long identidad = newCliente.getIdentificacion();
+        String clave = newCliente.getClave();
+        Optional<Cliente> clienteOptional = repoCliente.findById(identidad);
+        if (clienteOptional.isPresent()) {
+            Cliente clienteEncontrado = clienteOptional.get();
+            if (clienteEncontrado.getClave().equals(clave)) {
+                return true;
+            } else {
 
-    public ClienteDto obtenerCliente(long serial) {
-        Cliente cliente = repoClien.findById(serial).orElseThrow(
-                ResourceNotFoundException::new);
-        return modelMapper.map(cliente, ClienteDto.class);
-    }
-
-    public ClienteDto actualizar(ClienteDto equipoDto) {
-        repoClien.save(modelMapper.map(equipoDto, Cliente.class));
-        return equipoDto;
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 }

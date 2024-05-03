@@ -1,7 +1,6 @@
 package co.ucentral.sistemas.gestionCitasBancarias.dto;
 
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
