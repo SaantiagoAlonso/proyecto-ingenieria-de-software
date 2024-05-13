@@ -3,6 +3,7 @@ package co.ucentral.sistemas.gestionCitasBancarias.entidades;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name = "ClienteDto")
 @Table(name = "CLIENTES")
+@Builder
 public class Cliente {
 
     @Id

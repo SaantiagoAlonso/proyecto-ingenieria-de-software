@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "SedeDto")
+@Entity(name = "Sede")
 @Table(name = "SEDES")
 public class Sede {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SEDE")
     private long id_sede;
 
     @Column(name = "SED_NOMBRE")

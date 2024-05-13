@@ -3,14 +3,17 @@ package co.ucentral.sistemas.gestionCitasBancarias.servicios;
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
+import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
 import co.ucentral.sistemas.gestionCitasBancarias.operaciones.Operaciones;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
+import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoSede;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,9 @@ public class ServicioCliente implements Operaciones {
 
     @Autowired
     RepoCita repoCita;
+
+    @Autowired
+    RepoSede repoSede;
 
     @Autowired
     ModelMapper modelMapper;
@@ -56,6 +62,7 @@ public class ServicioCliente implements Operaciones {
         long identidad = newCliente.getIdentificacion();
         if(!repoCliente.findById(identidad).isPresent()){
             repoCliente.save(newCliente);
+            System.out.println("se guardo cliente");
             return 0;
         }else{
             System.out.println(newCliente.getIdentificacion());
@@ -65,7 +72,8 @@ public class ServicioCliente implements Operaciones {
     }
 
     @Override
-    public Cita filtarCitas(LocalDate fecha){
+    public List<LocalTime> disponibilidadHoras(Sede sede, LocalDate fecha, String servicio){
+        //generar lista de horas posibles para asignar cita
         LocalTime inicio = LocalTime.of(8, 0);  // 8:00 AM
         LocalTime fin = LocalTime.of(16, 0);    // 4:00 PM
 
@@ -79,10 +87,23 @@ public class ServicioCliente implements Operaciones {
             horaActual = horaActual.plusMinutes(minutosIntervalo);
         }
 
-        return new Cita();
+        List<LocalTime> disponiblies = new ArrayList<>(horas);
+
+        disponiblies.removeAll(repoCita.listarDisponibilidad(sede, fecha, servicio));
+
+
+        return horas;
     }
 
+    @Override
+    public void guardarCita(Cita cita) {
+        repoCita.save(cita);
+    }
 
+    public Cita obtenerCita(long id){
+        Cita ncita = repoCita.getReferenceById(id);
+        return ncita;
+    }
 
 
 

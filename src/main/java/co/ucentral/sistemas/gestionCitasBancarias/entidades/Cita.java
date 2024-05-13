@@ -2,26 +2,26 @@ package co.ucentral.sistemas.gestionCitasBancarias.entidades;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "CitaDto")
+@Entity(name = "Cita")
 @Table(name = "CITAS")
 @ToString
-public class Cita {
+@Builder
+public class Cita implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
@@ -31,11 +31,14 @@ public class Cita {
     @JoinColumn(name = "id_sede")
     private Sede sede;
 
+    /*@Column
+    private String sede;*/
+
     @Column
     private LocalDate fecha;
 
     @Column
-    private LocalDateTime hora;
+    private LocalTime hora;
 
     @Column
     private String servicio;
