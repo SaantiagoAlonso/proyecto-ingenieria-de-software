@@ -4,27 +4,23 @@ import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
-import co.ucentral.sistemas.gestionCitasBancarias.operaciones.Operaciones;
+import co.ucentral.sistemas.gestionCitasBancarias.operaciones.OperacionesCliente;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoSede;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServicioCliente implements Operaciones {
+public class ServicioCliente implements OperacionesCliente {
     @Autowired
     RepoCliente repoCliente;
 
@@ -104,7 +100,5 @@ public class ServicioCliente implements Operaciones {
         Cita ncita = repoCita.getReferenceById(id);
         return ncita;
     }
-
-
 
 }

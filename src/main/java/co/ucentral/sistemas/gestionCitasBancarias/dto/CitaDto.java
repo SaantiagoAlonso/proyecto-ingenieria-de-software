@@ -32,4 +32,5 @@ public class CitaDto {
 
     private String estado;
 
+    private String comentarios;
 }

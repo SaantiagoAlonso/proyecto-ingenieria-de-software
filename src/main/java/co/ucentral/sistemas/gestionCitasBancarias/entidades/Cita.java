@@ -54,4 +54,6 @@ public class Cita implements Serializable {
     @Column
     private String estado;
 
+    @Column
+    private String comentarios;
 }

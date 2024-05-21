@@ -36,7 +36,6 @@ public class ControladorCliente {
     @PostMapping("/banco/ingresar")
     public String iniciarSecion(@ModelAttribute("cliente") ClienteDto cliente){
         if(servicioCliente.inicioSesion(cliente)){
-            //return "inicio-cliente";
             return "index";
         }
         return "redirect:/formulario-ingreso";
@@ -97,9 +96,6 @@ public class ControladorCliente {
         //System.out.println(cita.toString());
         return "index";
     }
-
-
-
 
 
 }
