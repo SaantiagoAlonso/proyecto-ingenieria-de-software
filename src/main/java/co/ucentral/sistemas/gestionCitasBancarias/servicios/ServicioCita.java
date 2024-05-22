@@ -77,9 +77,7 @@ public class ServicioCita implements OperacionesCita {
 
     @Override
     public void CerrarCita(Cita cita){
-        LocalTime horaInicio = cita.getHora();
-        if (horaInicio.isBefore(cita.getHora().plusMinutes(5))){
             cita.setEstado("Terminado");
-        }
     }
 }
+

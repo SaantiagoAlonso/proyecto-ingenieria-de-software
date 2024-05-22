@@ -22,20 +22,26 @@ public class ControladorEmpleado {
     @Autowired
     RepoCita repoCita;
 
+    @PostMapping("/empleado/cerrar-cita")
+    public String cerrarCita (@ModelAttribute("cita") CitaDto citaDto){
+        Cita cita = repoCita.getReferenceById(citaDto.getId());
+        servicioCita.CerrarCita(cita);
+        return "index";
+    }
+
     @GetMapping("/empleado/manejo-cita")
     public String manejoCita(@ModelAttribute("cita") CitaDto citaDto, Model model) {
         Cita cita = repoCita.getReferenceById(citaDto.getId());
         model.addAttribute("cita", cita);
         if (!(cita.getHora() == cita.getHora().plusMinutes(5) && cita.getEstado().equals("En Curso"))){
             return "redirect:/empleado/cerrar-cita";}
-        return "null";
+        return null;
     }
-    @PostMapping("/empleado/cerrar-cita")
-    public String cerrarCita (@ModelAttribute("cita") CitaDto citaDto){
+    @GetMapping("/empleado/transcurso-cita")
+    public String transcursoCita(@ModelAttribute("cita") CitaDto citaDto, Model model) {
         Cita cita = repoCita.getReferenceById(citaDto.getId());
-        servicioCita.CerrarCita(cita);
-        return "index";
-        }
+        model.addAttribute("cita", cita);
 
-    }
+    return "redirect:/empleado/cerrar-cita";}
+}
 
