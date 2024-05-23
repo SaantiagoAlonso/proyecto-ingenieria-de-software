@@ -37,11 +37,11 @@ public class ControladorEmpleado {
             return "redirect:/empleado/cerrar-cita";}
         return null;
     }
+
     @GetMapping("/empleado/transcurso-cita")
     public String transcursoCita(@ModelAttribute("cita") CitaDto citaDto, Model model) {
         Cita cita = repoCita.getReferenceById(citaDto.getId());
         model.addAttribute("cita", cita);
-
     return "redirect:/empleado/cerrar-cita";}
 }
 
