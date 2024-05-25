@@ -72,7 +72,7 @@
                         </div> -->
                         <div class="form-group">
                             <label for="seleccionarSede">Sede</label>
-                            <select class="form-control" id="seleccionarSede" th:field="*{sede.id_sede}" >
+                            <select  class="form-control" id="seleccionarSede" th:field="*{sede.id_sede}" >
                                 <option value=1 >Norte</option>
                                 <option value=2 >Sur</option>
                                 <option value=3 > Centro</option>
@@ -91,7 +91,14 @@
                     <div class="row mt-3">
                         <div class="col-6">
                             <label for="fecha_cita" class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="fecha_cita" th:field="*{fecha}">
+                            <input type="date" class="form-control" id="fecha_cita" min="" th:field="*{fecha}">
+                            <script>
+                                // Obtener la fecha actual en formato YYYY-MM-DD
+                                const today = new Date().toISOString().split('T')[0];
+
+                                // Establecer el atributo 'min' del campo de fecha al valor de hoy
+                                document.getElementById('fecha_cita').min = today;
+                            </script>
                         </div>
                         <div class="col-6">
 

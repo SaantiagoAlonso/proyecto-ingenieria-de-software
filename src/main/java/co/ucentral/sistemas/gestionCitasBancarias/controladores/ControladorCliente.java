@@ -4,6 +4,7 @@ import co.ucentral.sistemas.gestionCitasBancarias.dto.CitaDto;
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
+import co.ucentral.sistemas.gestionCitasBancarias.modeloCorreo.StructuraCorreo;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCliente;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +38,7 @@ public class ControladorCliente {
     public String iniciarSecion(@ModelAttribute("cliente") ClienteDto cliente){
         if(servicioCliente.inicioSesion(cliente)){
             //return "inicio-cliente";
-            return "index";
+            return "inicio-cliente";
         }
         return "redirect:/formulario-ingreso";
     }
@@ -58,7 +59,7 @@ public class ControladorCliente {
             System.out.println("ya existe otro registro asociado con la misma identificacion");
             return "formulario-registro";
         }
-        return "index";
+        return "inicio-cliente";
     }
 
     @GetMapping("/cliente/solicitar_cita")
@@ -79,10 +80,11 @@ public class ControladorCliente {
 
     @GetMapping("/cliente/verificarDisponibilidad")
     public String mostrarFormularioCita(@RequestParam("idCita") long id , @ModelAttribute("cita") Cita cita, Model model)  {
-        List<LocalTime> opciones = servicioCliente.disponibilidadHoras(cita.getSede(),cita.getFecha(),cita.getServicio());
-        System.out.println(servicioCliente.disponibilidadHoras(cita.getSede(),cita.getFecha(),cita.getServicio()));
-        System.out.println(repoCita.listarDisponibilidad(cita.getSede(),cita.getFecha(),cita.getServicio()));
         Cita newCita = servicioCliente.obtenerCita(id);
+        List<LocalTime> opciones = servicioCliente.disponibilidadHoras(newCita.getSede(),newCita.getFecha(),newCita.getServicio());
+        System.out.println(servicioCliente.disponibilidadHoras(newCita.getSede(),newCita.getFecha(),newCita.getServicio()));
+        System.out.println(repoCita.listarDisponibilidad(newCita.getFecha(),newCita.getServicio(),newCita.getSede().getId_sede()));
+        //Cita newCita = servicioCliente.obtenerCita(id);
         System.out.println(newCita.toString() + "este es la cita");
         //otros datos de cita definidos por el sitema
         model.addAttribute("cita",newCita);
@@ -94,6 +96,16 @@ public class ControladorCliente {
     public String asignarCita(@ModelAttribute("cita") Cita cita){
         System.out.println("antes de guardar lo qye llega al metodo " + cita.toString());
         servicioCliente.guardarCita(cita);
+
+        StructuraCorreo structuraCorreo = new StructuraCorreo();
+        structuraCorreo.setAsunto("¡Bienvenido al sistema!");
+        structuraCorreo.setMensaje("su cita ha sido asignada satesfactoriamente." +
+               " hora: " + cita.getHora() + " sede: " + cita.getSede().getNombre() + " direccion: "
+                       + cita.getSede().getDireccion() + " fecha: " +  cita.getFecha() + " servicio: " + cita.getServicio() );
+
+        String correo = cita.getId_cliente().getCorreo();
+        servicioCliente.enviarCorreo(correo,structuraCorreo);
+
         //System.out.println(cita.toString());
         return "index";
     }

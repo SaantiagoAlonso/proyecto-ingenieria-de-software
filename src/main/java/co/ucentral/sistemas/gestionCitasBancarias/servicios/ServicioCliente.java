@@ -4,6 +4,7 @@ import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
+import co.ucentral.sistemas.gestionCitasBancarias.modeloCorreo.StructuraCorreo;
 import co.ucentral.sistemas.gestionCitasBancarias.operaciones.Operaciones;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
@@ -12,15 +13,20 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,6 +42,9 @@ public class ServicioCliente implements Operaciones {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    JavaMailSender javaMailSender;
 
     @Override
     public boolean inicioSesion(ClienteDto cliente) {
@@ -87,9 +96,24 @@ public class ServicioCliente implements Operaciones {
             horaActual = horaActual.plusMinutes(minutosIntervalo);
         }
 
-        List<LocalTime> disponiblies = new ArrayList<>(horas);
+        //List<LocalTime> disponiblies = new ArrayList<>(horas);
 
-        disponiblies.removeAll(repoCita.listarDisponibilidad(sede, fecha, servicio));
+        List<Time> resultTimes = repoCita.listarDisponibilidad(fecha, servicio, sede.getId_sede());
+
+        if (resultTimes == null) {
+            return horas; // Devolver todas las horas disponibles si no se encontraron tiempos reservados
+        }
+
+        List<LocalTime> localTimes = new ArrayList<>();
+        for (Time time : resultTimes) {
+            if (time != null) {
+                localTimes.add(time.toLocalTime());
+            }
+            //localTimes.add(time.toLocalTime());
+        }
+
+
+        horas.removeAll(localTimes);
 
 
         return horas;
@@ -97,7 +121,7 @@ public class ServicioCliente implements Operaciones {
 
     @Override
     public void guardarCita(Cita cita) {
-        repoCita.save(cita);
+            repoCita.save(cita);
     }
 
     public Cita obtenerCita(long id){
@@ -105,6 +129,20 @@ public class ServicioCliente implements Operaciones {
         return ncita;
     }
 
+
+    @Value("$(spring.email.username)")
+    private String fromEmail;
+
+    public void enviarCorreo(String correo, StructuraCorreo structuraCorreo){
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(fromEmail);
+        simpleMailMessage.setSubject(structuraCorreo.getAsunto());
+        simpleMailMessage.setText(structuraCorreo.getMensaje());
+        simpleMailMessage.setTo(correo);
+
+        javaMailSender.send(simpleMailMessage);
+
+    }
 
 
 }

@@ -34,10 +34,12 @@ class RepoClienteTest {
                 .correo("pepito@gmail.com")
                 .clave("clave2").build();
         //when
-        repoCliente.save(cliente);
+        Cliente newcliente = repoCliente.save(cliente);
 
         //then
-        assertThat(cliente).isNotNull();
+        //assertThat(newcliente).isNotNull();
+
+        assertEquals("pepito",newcliente.getNombre());
 
     }
 

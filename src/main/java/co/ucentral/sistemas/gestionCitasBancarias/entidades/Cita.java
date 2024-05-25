@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.util.Date;
 
 @Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Cita")
@@ -24,7 +25,7 @@ public class Cita implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column
+    @Column(name = "turno")
     private int turno;
 
     @ManyToOne
@@ -52,6 +53,6 @@ public class Cita implements Serializable {
     private Empleado id_empleado;
 
     @Column
-    private String estado;
+    private String estado = "pendiente";
 
 }
