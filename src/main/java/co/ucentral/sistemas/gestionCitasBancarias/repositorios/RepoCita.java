@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.time.LocalTime;
 import java.util.List;
-
+@Repository
 public interface RepoCita extends JpaRepository<Cita, Long>, JpaSpecificationExecutor<Cita> {
 
     @Query("SELECT c.hora FROM Cita c " +
@@ -20,5 +21,5 @@ public interface RepoCita extends JpaRepository<Cita, Long>, JpaSpecificationExe
             "AND c.fecha = :fecha " +
             "AND c.servicio = :servicio ")
     public List<LocalTime> listarDisponibilidad(Sede sede, LocalDate fecha, String servicio);
-
+    List<Cita> findByEmpleadoIdentificacion(long identificacion);
 }

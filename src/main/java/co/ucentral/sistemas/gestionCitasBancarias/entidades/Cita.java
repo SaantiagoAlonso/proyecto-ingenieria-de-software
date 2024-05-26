@@ -21,7 +21,7 @@ public class Cita implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
@@ -30,9 +30,6 @@ public class Cita implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_sede")
     private Sede sede;
-
-    /*@Column
-    private String sede;*/
 
     @Column
     private LocalDate fecha;
@@ -44,16 +41,13 @@ public class Cita implements Serializable {
     private String servicio;
 
     @ManyToOne
-    @JoinColumn(name = "identificacion")
-    private Cliente id_cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "emp_id")
-    private Empleado id_empleado;
+    @JoinColumn(name = "empleado_identificacion")
+    private Empleado empleado;
 
     @Column
     private String estado;
 
     @Column
     private String comentarios;
+
 }

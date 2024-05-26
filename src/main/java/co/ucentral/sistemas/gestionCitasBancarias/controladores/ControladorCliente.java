@@ -1,21 +1,15 @@
 package co.ucentral.sistemas.gestionCitasBancarias.controladores;
 
-import co.ucentral.sistemas.gestionCitasBancarias.dto.CitaDto;
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
-import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCliente;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -34,7 +28,7 @@ public class ControladorCliente {
     }
 
     @PostMapping("/banco/ingresar")
-    public String iniciarSecion(@ModelAttribute("cliente") ClienteDto cliente){
+    public String iniciarSesion(@ModelAttribute("cliente") ClienteDto cliente){
         if(servicioCliente.inicioSesion(cliente)){
             return "index";
         }

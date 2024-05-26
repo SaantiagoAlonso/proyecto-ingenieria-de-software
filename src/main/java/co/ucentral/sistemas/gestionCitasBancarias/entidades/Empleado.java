@@ -1,5 +1,6 @@
 package co.ucentral.sistemas.gestionCitasBancarias.entidades;
 
+import co.ucentral.sistemas.gestionCitasBancarias.dto.EmpleadoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "EMPLEADOS")
 public class Empleado {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long emp_id;
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long identificacion;
 
     @Column
     private String nombre;

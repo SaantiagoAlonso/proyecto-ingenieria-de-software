@@ -2,9 +2,137 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Portal Empleados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas Bancarias Pendientes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group input {
+            padding: 10px;
+            font-size: 1rem;
+            width: calc(100% - 22px);
+            margin-right: -2px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+        .input-group button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+        .appointment {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .appointment:last-child {
+            border-bottom: none;
+        }
+        .appointment span {
+            font-size: 1rem;
+            color: #555;
+        }
+        .appointment button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .appointment button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+
+<div class="container">
+    <h1>Citas Bancarias Pendientes</h1>
+    <div class="input-group">
+        <input type="number" id="empleadoId" placeholder="Ingrese ID del empleado">
+        <button onclick="loadAppointments()">Buscar Citas</button>
+    </div>
+    <div id="appointments"></div>
+</div>
+
+<script>
+    function loadAppointments() {
+        const empleadoId = document.getElementById('empleadoId').value;
+        if (!empleadoId) {
+            alert('Por favor ingrese un ID de empleado válido.');
+            return;
+        }
+
+        fetch(`http://localhost:8080/api/citas/empleado/${empleadoId}`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('appointments');
+                container.innerHTML = ''; // Clear previous appointments
+
+                if (data.length === 0) {
+                    const noAppointmentsDiv = document.createElement('div');
+                    noAppointmentsDiv.classList.add('appointment');
+                    noAppointmentsDiv.textContent = "No hay citas pendientes para este empleado.";
+                    container.appendChild(noAppointmentsDiv);
+                } else {
+                    data.forEach((cita, index) => {
+                        const appointmentDiv = document.createElement('div');
+                        appointmentDiv.classList.add('appointment');
+
+                        const appointmentText = document.createElement('span');
+                        appointmentText.textContent = `Turno ${cita.turno} - ${cita.servicio} (${cita.fecha} ${cita.hora})`;
+                        appointmentDiv.appendChild(appointmentText);
+
+                        const button = document.createElement('button');
+                        button.textContent = 'Atender';
+                        button.onclick = () => {
+                            alert(`Atendiendo la cita: ${cita.servicio}`);
+                        };
+                        appointmentDiv.appendChild(button);
+
+                        container.appendChild(appointmentDiv);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching appointments:', error);
+            });
+    }
+</script>
 
 </body>
 </html>

@@ -19,15 +19,7 @@ public interface OperacionesCita {
 
     void eliminar(long serial);
 
-    void saveCita(CitaDto cita);
-
-    List<CitaDto> getAllCitas();
-
-    CitaDto getCitaById(long id);
-
-    void updateCita(CitaDto cita);
-
-    void deleteCita(long id);
-
     void CerrarCita(Cita cita);
+
+    List<Cita> findCitasByEmp_Id(long emp_Id);
 }
