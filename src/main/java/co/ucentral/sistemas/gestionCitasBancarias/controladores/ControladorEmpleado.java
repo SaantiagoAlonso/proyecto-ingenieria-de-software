@@ -8,6 +8,7 @@ import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCita;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCliente;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioEmpleado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+
 
 @Controller
 public class ControladorEmpleado {
@@ -45,7 +47,7 @@ public class ControladorEmpleado {
         System.out.println("Login exitoso: " + loginExitoso);
 
         if (loginExitoso) {
-            return "redirect:/empleado/portal-empleado";
+            return "redirect:/empleado/portal-empleado/" + empleado.getIdentificacion();
         }
         System.out.println("Login fallido, redirigiendo a index.");
         return "index";
@@ -74,18 +76,15 @@ public class ControladorEmpleado {
     return "redirect:/empleado/cerrar-cita";
     }
 
-    @GetMapping("/empleado/portal-empleado")
-    public String portalEmpleado(@ModelAttribute("cita") EmpleadoDto empleadoDto) {
-    return "portal-empleado";
+    @GetMapping("/empleado/portal-empleado/{id}")
+    public String portalEmpleado(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("empleadoId", id);
+        return "portal-empleado";
     }
-
-    @GetMapping("/empleado/{empleadoId}")
-    public List<Cita> listarCitasPorEmId(@PathVariable long empleadoId) {
-        return servicioCita.findCitasByEmp_Id(empleadoId);
-    }
-    @GetMapping("/citas/{empleadoId}")
-    public List<Cita> obtenerCitasPorEmpleado(@PathVariable Long empleadoId) {
-        return servicioCita.findCitasByEmp_Id(empleadoId);
+    @GetMapping("/empleado/{id}")
+    public ResponseEntity<List<Cita>> getCitasPorEmpleado(@PathVariable Long id) {
+        List<Cita> citas = repoCita.findByEmpleado_Identificacion(id);
+        return ResponseEntity.ok(citas);
     }
 }
 

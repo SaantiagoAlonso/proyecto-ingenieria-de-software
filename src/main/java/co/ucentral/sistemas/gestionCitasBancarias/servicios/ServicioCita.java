@@ -7,6 +7,7 @@ import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +19,11 @@ import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundExce
 @RequiredArgsConstructor
 public class ServicioCita implements OperacionesCita {
 
-    final ModelMapper modelMapper;
+    @Autowired
+    ModelMapper modelMapper;
+    @Autowired
+    RepoCita repoCita;
 
-    private final RepoCita repoCita;
 
     @Override
     public CitaDto registrar(CitaDto citaDto) {
@@ -62,11 +65,10 @@ public class ServicioCita implements OperacionesCita {
     public void CerrarCita(Cita cita) {
         cita.setEstado("Terminado");
     }
-
-
     @Override
-    public List<Cita> findCitasByEmp_Id(long identificacion) {
-        return repoCita.findByEmpleadoIdentificacion(identificacion);
+    public List<CitaDto> obtenerCitasPorEmpleado(long identificacion) {
+        List<Cita> citas = repoCita.findByEmpleado_Identificacion(identificacion);
+        return modelMapper.map(citas, new TypeToken<List<CitaDto>>(){}.getType());
     }
 }
 

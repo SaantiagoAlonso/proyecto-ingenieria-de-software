@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "EMPLEADOS")
 public class Empleado {
 
-    @Id()
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long identificacion;
 

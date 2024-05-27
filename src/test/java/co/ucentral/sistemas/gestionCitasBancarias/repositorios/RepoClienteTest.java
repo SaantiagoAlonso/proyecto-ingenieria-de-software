@@ -2,6 +2,7 @@ package co.ucentral.sistemas.gestionCitasBancarias.repositorios;
 
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
+import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCita;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ class RepoClienteTest {
     TestEntityManager testEntityManager;
     @Autowired
     private RepoCita repoCita;
+    @Autowired
+    private ServicioCita servicioCita;
 
     @DisplayName("Test guardar Cliente")
     @Test
@@ -96,14 +99,6 @@ class RepoClienteTest {
         Cliente cliente2 = repoCliente.getReferenceById(555L);
 
         assertThat(cliente2.getIdentificacion()).isEqualTo(555);
-
-    }
-    @DisplayName("Cerrar cita inactiva")
-    @Test
-    void cerrarCitaInactiva(){
-        Cita cita = Cita.builder()
-                .hora(LocalTime.of(8,30)).build();
-        repoCita.save(cita);
 
     }
 }

@@ -21,5 +21,7 @@ public interface RepoCita extends JpaRepository<Cita, Long>, JpaSpecificationExe
             "AND c.fecha = :fecha " +
             "AND c.servicio = :servicio ")
     public List<LocalTime> listarDisponibilidad(Sede sede, LocalDate fecha, String servicio);
-    List<Cita> findByEmpleadoIdentificacion(long identificacion);
+
+    List<Cita> findByEmpleado_Identificacion(long identificacion);
+
 }

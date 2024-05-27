@@ -3,8 +3,10 @@ package co.ucentral.sistemas.gestionCitasBancarias.controladores;
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
+import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCita;
 import co.ucentral.sistemas.gestionCitasBancarias.servicios.ServicioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,12 @@ import java.util.List;
 
 @Controller
 public class ControladorCliente {
-    @Autowired
+
     ServicioCliente servicioCliente;
 
-    @Autowired
     RepoCita repoCita;
+
+    private ServicioCita servicioCita;
 
     @GetMapping("/banco/inicio-sesion")
     public String formularioIngreso(Model model){
@@ -26,7 +29,6 @@ public class ControladorCliente {
         model.addAttribute("cliente",cliente);
         return "formulario-ingreso";
     }
-
     @PostMapping("/banco/ingresar")
     public String iniciarSesion(@ModelAttribute("cliente") ClienteDto cliente){
         if(servicioCliente.inicioSesion(cliente)){
@@ -35,8 +37,6 @@ public class ControladorCliente {
         return "redirect:/formulario-ingreso";
     }
 
-
-    //este metodo permite mostrar el formulario de registro
     @GetMapping("/banco/formulario-registro")
     public String formularioRegistro(Model model){
         ClienteDto cliente = new ClienteDto();
@@ -44,7 +44,6 @@ public class ControladorCliente {
         return "formulario-registro";
     }
 
-    //falta retornar correctamente la pagona html en caso de que el cliente se pueda registrar por el mometo retorna el inicio
     @PostMapping("/banco/registrar")
     public String registrarCliente(@ModelAttribute("cliente") ClienteDto cliente){
         if(servicioCliente.ingresarCliente(cliente) == 1){
@@ -68,8 +67,6 @@ public class ControladorCliente {
         return "redirect:"+ direccion;
     }
 
-
-
     @GetMapping("/cliente/verificarDisponibilidad")
     public String mostrarFormularioCita(@RequestParam("idCita") long id , @ModelAttribute("cita") Cita cita, Model model)  {
         List<LocalTime> opciones = servicioCliente.disponibilidadHoras(cita.getSede(),cita.getFecha(),cita.getServicio());
@@ -90,6 +87,5 @@ public class ControladorCliente {
         //System.out.println(cita.toString());
         return "index";
     }
-
 
 }

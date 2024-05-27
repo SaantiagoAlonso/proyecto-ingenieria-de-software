@@ -23,13 +23,10 @@ import org.springframework.stereotype.Service;
 public class ServicioCliente implements OperacionesCliente {
     @Autowired
     RepoCliente repoCliente;
-
     @Autowired
     RepoCita repoCita;
-
     @Autowired
     RepoSede repoSede;
-
     @Autowired
     ModelMapper modelMapper;
 

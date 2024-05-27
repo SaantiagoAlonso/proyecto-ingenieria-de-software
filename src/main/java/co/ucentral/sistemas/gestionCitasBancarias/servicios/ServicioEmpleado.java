@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Service
 public class ServicioEmpleado implements OperacionesEmpleado {
-    @Autowired
+@Autowired
     RepoCliente repoCliente;
 
     @Autowired
@@ -30,7 +30,7 @@ public class ServicioEmpleado implements OperacionesEmpleado {
     @Autowired
     ModelMapper modelMapper;
     @Autowired
-    private RepoEmpleado repoEmpleado;
+    RepoEmpleado repoEmpleado;
 
     public boolean inicioSesion(EmpleadoDto empleado) {
         System.out.println("EmpleadoDto ID: " + empleado.getIdentificacion()); // Verifica el ID en EmpleadoDto

@@ -21,5 +21,5 @@ public interface OperacionesCita {
 
     void CerrarCita(Cita cita);
 
-    List<Cita> findCitasByEmp_Id(long emp_Id);
+    List<CitaDto> obtenerCitasPorEmpleado(long identificacion);
 }
