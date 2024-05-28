@@ -32,8 +32,6 @@ public class Cita implements Serializable {
     @JoinColumn(name = "id_sede")
     private Sede sede;
 
-    /*@Column
-    private String sede;*/
 
     @Column
     private LocalDate fecha;
@@ -50,7 +48,7 @@ public class Cita implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "emp_id")
-    private Empleado id_empleado;
+    private Empleado empleado;
 
     @Column
     private String estado = "pendiente";

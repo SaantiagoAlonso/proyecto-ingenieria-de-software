@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "EmpleadoDto")
+@Entity(name = "Empleados")
 @Table(name = "EMPLEADOS")
 public class Empleado {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long emp_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long identificacion;
 
     @Column
     private String nombre;
