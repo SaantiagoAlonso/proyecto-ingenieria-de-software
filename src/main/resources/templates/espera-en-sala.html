@@ -36,7 +36,7 @@
 <h1>Llamado en Sala</h1>
 <button onclick="confirmarAsistencia()">Confirmar Asistencia</button>
 <script th:inline="javascript">
-    /*<![CDATA[*/
+
     const idCita = /*[[${idCita}]]*/ 'idCita';
 
     // Inicia el temporizador de 3 minutos
@@ -70,7 +70,6 @@
             alert("Error: ID de cita no encontrado");
         }
     }
-    /*]]>*/
 </script>
 </body>
 </html>
