@@ -16,7 +16,7 @@ public interface OperacionesCita {
 
     Optional<Cita> obtenerCitaById(long serial);
 
-    CitaDto actualizar(CitaDto citaDto);
+    Cita actualizar(CitaDto citaDto);
 
     void eliminar(long serial);
 

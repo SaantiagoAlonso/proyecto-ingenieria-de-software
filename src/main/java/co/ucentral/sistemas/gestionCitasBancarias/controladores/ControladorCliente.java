@@ -27,6 +27,9 @@ public class ControladorCliente {
     @Autowired
     RepoCita repoCita;
 
+    private int i = 1;
+
+
     @GetMapping("/banco/inicio-sesion")
     public String formularioIngreso(Model model){
         ClienteDto cliente = new ClienteDto();
@@ -99,7 +102,8 @@ public class ControladorCliente {
         String servicio = cita.getServicio().toLowerCase();
 
         cita.setEmpleado(servicioCliente.seleccionarEmpleado(sede,servicio));
-
+        cita.setTurno(i);
+        i = i + 1;
         System.out.println("el empleado que atiende es " + cita.getEmpleado());
         servicioCliente.guardarCita(cita);
 

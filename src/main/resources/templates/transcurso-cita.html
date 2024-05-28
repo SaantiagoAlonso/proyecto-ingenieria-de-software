@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcurso de cita</title>
+</head>
+<body>
+<h1>Cita en progreso</h1>
+<form th:action="@{/empleado/transcurso-cita/{idCita}(idCita=${cita.id})}" method="post" th:object="${cita}">
+<!--<form th:action="@{/empleado/transcurso-cita}" method="post" th:object="${cita}">-->
+    <label>Datos de la cita: </label><br>
+    <p>Turno: <span th:text="${cita.turno}"></span></p>
+    <p>Sede: <span th:text="${cita.sede}"></span></p>
+    <p>Fecha: <span th:text="${cita.fecha}"></span></p>
+    <p>Hora: <span th:text="${cita.hora}"></span></p>
+    <p>Servicio: <span th:text="${cita.servicio}"></span></p>
+    <label for="observaciones">Observaciones:</label><br>
+    <!--<textarea id="observaciones" name="observaciones" rows="4" cols="50" th:field="*{comentarios}"></textarea><br><br>-->
+    <!--<input id="observaciones" name="observaciones" rows="4" cols="50" th:field="*{comentarios}"></input>-->
+    <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea><br><br>
+    <br><br>
+    <!--<input type="submit" value="Terminar cita">-->
+    <button type="submit" class="btn btn-primary ">Terminar cita</button>
+</form>
+</body>
+</html>

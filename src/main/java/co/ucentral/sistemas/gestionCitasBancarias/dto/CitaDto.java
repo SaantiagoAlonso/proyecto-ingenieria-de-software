@@ -28,8 +28,10 @@ public class CitaDto {
 
     private ClienteDto id_cliente;
 
-    private EmpleadoDto id_empleado;
+    private EmpleadoDto empleado;
 
     private String estado;
+
+    private String comentarios;
 
 }

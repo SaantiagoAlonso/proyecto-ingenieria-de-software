@@ -51,9 +51,9 @@ public class ServicioCita implements OperacionesCita {
     }
 
     @Override
-    public CitaDto actualizar(CitaDto citaDto) {
-        repoCita.save(modelMapper.map(citaDto, Cita.class));
-        return citaDto;
+    public Cita actualizar(CitaDto citaDto) {
+        Cita citaActualizada = repoCita.save(modelMapper.map(citaDto, Cita.class));
+        return citaActualizada;
     }
 
     @Override
@@ -64,6 +64,7 @@ public class ServicioCita implements OperacionesCita {
     @Override
     public void CerrarCita(Cita cita) {
         cita.setEstado("Terminado");
+        repoCita.save(cita);
     }
     @Override
     public List<CitaDto> obtenerCitasPorEmpleado(long identificacion) {

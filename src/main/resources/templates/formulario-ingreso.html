@@ -10,12 +10,11 @@
             background: gray;
             background: linear-gradient(to right, #5e606d ,#ebdfeb);
         }
+
         .bg{
             background-image: url('/imagenes/registro.jpg');
             background-size: cover;
             background-position:center center;
-
-
         }
     </style>
 </head>
@@ -45,9 +44,18 @@
                     </div>
 
 
-                    <div class="row mt-3">
+                    <!--<div class="row mt-3">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary ">Enviar</button>
+                        </div>
+                    </div>-->
+
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            <button type="submit" class="btn btn-primary ">Enviar</button>
+                        </div>
+                        <div class="col text-center">
+                            <a class="btn btn-primary" th:href="@{/banco/formulario-registro}" role="button">Restrarme</a>
                         </div>
                     </div>
 
