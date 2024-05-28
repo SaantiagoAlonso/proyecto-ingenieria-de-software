@@ -33,9 +33,9 @@ public class ServicioEmpleado implements OperacionesEmpleado {
     RepoEmpleado repoEmpleado;
 
     public boolean inicioSesion(EmpleadoDto empleado) {
-        System.out.println("EmpleadoDto ID: " + empleado.getIdentificacion()); // Verifica el ID en EmpleadoDto
+        System.out.println("EmpleadoDto ID: " + empleado.getEmpId()); // Verifica el ID en EmpleadoDto
         Empleado newEmpleado = modelMapper.map(empleado, Empleado.class);
-        long identidad = newEmpleado.getIdentificacion();
+        long identidad = newEmpleado.getEmpId();
         String clave = newEmpleado.getClave();
         boolean seguir = false;
 
@@ -45,7 +45,7 @@ public class ServicioEmpleado implements OperacionesEmpleado {
         Optional<Empleado> empleadoOptional = repoEmpleado.findById(identidad);
         if (empleadoOptional.isPresent()) {
             Empleado empleadoEncontrado = empleadoOptional.get();
-            System.out.println("Empleado encontrado: " + empleadoEncontrado.getIdentificacion());
+            System.out.println("Empleado encontrado: " + empleadoEncontrado.getEmpId());
             System.out.println("Clave en la base de datos: " + empleadoEncontrado.getClave());
             if (empleadoEncontrado.getClave().equals(clave)){
                 System.out.println("Las claves coinciden");

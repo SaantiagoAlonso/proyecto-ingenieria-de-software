@@ -22,6 +22,12 @@ public interface RepoCita extends JpaRepository<Cita, Long>, JpaSpecificationExe
     List<Time> listarDisponibilidad(LocalDate fecha, String servicio, Long idSede);
 
 
-    List<Cita> findByEmpleado_Identificacion(long identificacion);
+    //List<Cita> findByEmpleado_emp_id(long identificacionE);
+
+    //List<Cita> findByEmpleado_Id(long emp_id);
+
+    List<Cita> findByEmpleado_EmpId(long emp_id);
+
+
 
 }

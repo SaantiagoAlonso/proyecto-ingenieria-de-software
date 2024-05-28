@@ -41,13 +41,13 @@ public class ControladorEmpleado {
     @PostMapping("/empleado/ingresar")
     public String iniciarSesion(@ModelAttribute("empleado") EmpleadoDto empleado) {
         // Depuración: Imprimir datos recibidos del formulario
-        System.out.println("Datos recibidos del formulario - ID: " + empleado.getIdentificacion() + ", Clave: " + empleado.getClave());
+        System.out.println("Datos recibidos del formulario - ID: " + empleado.getEmpId() + ", Clave: " + empleado.getClave());
 
         boolean loginExitoso = servicioEmpleado.inicioSesion(empleado);
         System.out.println("Login exitoso: " + loginExitoso);
 
         if (loginExitoso) {
-            return "redirect:/empleado/portal-empleado/" + empleado.getIdentificacion();
+            return "redirect:/empleado/portal-empleado/" + empleado.getEmpId();
         }
         System.out.println("Login fallido, redirigiendo a index.");
         return "index";
@@ -83,7 +83,7 @@ public class ControladorEmpleado {
     }
     @GetMapping("/empleado/{id}")
     public ResponseEntity<List<Cita>> getCitasPorEmpleado(@PathVariable Long id) {
-        List<Cita> citas = repoCita.findByEmpleado_Identificacion(id);
+        List<Cita> citas = repoCita.findByEmpleado_EmpId(id);
         return ResponseEntity.ok(citas);
     }
 }

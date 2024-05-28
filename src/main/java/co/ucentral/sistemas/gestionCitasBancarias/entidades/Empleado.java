@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "EMPLEADOS")
 public class Empleado {
 
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long identificacion;
+    private long empId;
 
     @Column
     private String nombre;

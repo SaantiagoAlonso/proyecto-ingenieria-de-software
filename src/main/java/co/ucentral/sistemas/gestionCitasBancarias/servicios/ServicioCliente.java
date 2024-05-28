@@ -3,11 +3,13 @@ package co.ucentral.sistemas.gestionCitasBancarias.servicios;
 import co.ucentral.sistemas.gestionCitasBancarias.dto.ClienteDto;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cliente;
+import co.ucentral.sistemas.gestionCitasBancarias.entidades.Empleado;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
 import co.ucentral.sistemas.gestionCitasBancarias.modeloCorreo.StructuraCorreo;
 import co.ucentral.sistemas.gestionCitasBancarias.operaciones.Operaciones;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCita;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
+import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoEmpleado;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoSede;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -33,6 +35,9 @@ import org.springframework.stereotype.Service;
 public class ServicioCliente implements Operaciones {
     @Autowired
     RepoCliente repoCliente;
+
+    @Autowired
+    RepoEmpleado repoEmpleado;
 
     @Autowired
     RepoCita repoCita;
@@ -142,6 +147,10 @@ public class ServicioCliente implements Operaciones {
 
         javaMailSender.send(simpleMailMessage);
 
+    }
+
+    public Empleado seleccionarEmpleado(Long idSede, String cargo) {
+        return repoEmpleado.findBySedeAndCargo(idSede, cargo);
     }
 
 

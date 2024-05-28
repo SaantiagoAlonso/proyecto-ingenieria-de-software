@@ -95,7 +95,12 @@ public class ControladorCliente {
     @PostMapping("/cliente/guardar-cita")
     public String asignarCita(@ModelAttribute("cita") Cita cita){
         System.out.println("antes de guardar lo qye llega al metodo " + cita.toString());
-        cita.setEmpleado();
+        long sede = cita.getSede().getId_sede();
+        String servicio = cita.getServicio().toLowerCase();
+
+        cita.setEmpleado(servicioCliente.seleccionarEmpleado(sede,servicio));
+
+        System.out.println("el empleado que atiende es " + cita.getEmpleado());
         servicioCliente.guardarCita(cita);
 
         StructuraCorreo structuraCorreo = new StructuraCorreo();
