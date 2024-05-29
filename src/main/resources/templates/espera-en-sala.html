@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llamado en Sala</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Llamado en Sala</h1>
+<button onclick="confirmarAsistencia()">Confirmar Asistencia</button>
+<script th:inline="javascript">
+
+    const idCita = /*[[${idCita}]]*/ 'idCita';
+
+    // Inicia el temporizador de 3 minutos
+    const temporizador = setTimeout(cerrarCita, 180000);
+    function confirmarAsistencia() {
+        // Si el usuario confirma la asistencia, cancela el temporizador
+        clearTimeout(temporizador);
+        // Comprueba si idCita es null antes de redirigir
+        if (idCita) {
+            // Redirige al controlador que atiende la cita
+            window.location.replace(`/empleado/atender-cita/${idCita}`);
+        } else {
+            alert("Error: ID de cita no encontrado");
+        }
+    }
+
+    function cerrarCita() {
+        // Si el temporizador se agota, cierra la cita
+        // Comprueba si idCita es null antes de hacer la solicitud fetch
+        if (idCita) {
+            fetch(`/empleado/cerrar-cita/${idCita}`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    alert("La cita ha sido cerrada debido a inactividad");
+                } else {
+                    alert("Hubo un error al intentar cerrar la cita");
+                }
+            });
+        } else {
+            alert("Error: ID de cita no encontrado");
+        }
+    }
+</script>
+</body>
+</html>
