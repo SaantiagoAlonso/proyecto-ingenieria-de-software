@@ -5,7 +5,6 @@ import co.ucentral.sistemas.gestionCitasBancarias.entidades.Cita;
 import co.ucentral.sistemas.gestionCitasBancarias.entidades.Sede;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 

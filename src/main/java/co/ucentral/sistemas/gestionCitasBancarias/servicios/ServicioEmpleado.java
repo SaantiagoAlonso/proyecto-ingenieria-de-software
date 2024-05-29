@@ -8,32 +8,27 @@ import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoEmpleado;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoSede;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
 public class ServicioEmpleado implements OperacionesEmpleado {
-    final
+    @Autowired
     RepoCliente repoCliente;
 
-    final
+    @Autowired
     RepoCita repoCita;
 
-    final
+    @Autowired
     RepoSede repoSede;
 
-    final
+    @Autowired
     ModelMapper modelMapper;
-    final
+
+    @Autowired
     RepoEmpleado repoEmpleado;
 
-    public ServicioEmpleado(RepoCliente repoCliente, RepoCita repoCita, RepoSede repoSede, ModelMapper modelMapper, RepoEmpleado repoEmpleado) {
-        this.repoCliente = repoCliente;
-        this.repoCita = repoCita;
-        this.repoSede = repoSede;
-        this.modelMapper = modelMapper;
-        this.repoEmpleado = repoEmpleado;
-    }
 
     public boolean inicioSesion(EmpleadoDto empleado) {
         Empleado newEmpleado = modelMapper.map(empleado, Empleado.class);

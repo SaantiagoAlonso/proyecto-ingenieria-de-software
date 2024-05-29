@@ -17,15 +17,11 @@ import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundExce
 @RequiredArgsConstructor
 public class ServicioCita implements OperacionesCita {
 
+    @Autowired
     ModelMapper modelMapper;
-    RepoCita repoCita;
 
     @Autowired
-    public ServicioCita(ModelMapper modelMapper, RepoCita repoCita) {
-        this.modelMapper = modelMapper;
-        this.repoCita = repoCita;
-    }
-
+    RepoCita repoCita;
 
     @Override
     public CitaDto registrar(CitaDto citaDto) {
