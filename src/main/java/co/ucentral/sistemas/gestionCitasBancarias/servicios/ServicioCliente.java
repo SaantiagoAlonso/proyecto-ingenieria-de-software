@@ -18,6 +18,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,22 +27,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ServicioCliente implements Operaciones {
-    final
+    @Autowired
     RepoCliente repoCliente;
 
-    final
+    @Autowired
     RepoEmpleado repoEmpleado;
 
-    final
+    @Autowired
     RepoCita repoCita;
 
-    final
+    @Autowired
     RepoSede repoSede;
 
-    final
+    @Autowired
     ModelMapper modelMapper;
 
-    final
+    @Autowired
     JavaMailSender javaMailSender;
 
     public ServicioCliente(RepoCliente repoCliente, RepoEmpleado repoEmpleado, RepoCita repoCita, RepoSede repoSede, ModelMapper modelMapper, JavaMailSender javaMailSender) {
@@ -61,12 +62,7 @@ public class ServicioCliente implements Operaciones {
         Optional<Cliente> clienteOptional = repoCliente.findById(identidad);
         if (clienteOptional.isPresent()) {
             Cliente clienteEncontrado = clienteOptional.get();
-            if (clienteEncontrado.getClave().equals(clave)) {
-                return true;
-            } else {
-
-                return false;
-            }
+            return clienteEncontrado.getClave().equals(clave);
         } else {
             return false;
         }
@@ -123,8 +119,7 @@ public class ServicioCliente implements Operaciones {
     }
 
     public Cita obtenerCita(long id){
-        Cita ncita = repoCita.getReferenceById(id);
-        return ncita;
+        return repoCita.getReferenceById(id);
     }
 
 

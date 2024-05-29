@@ -24,5 +24,4 @@ public class Sede {
     @Column
     private String direccion;
 
-
 }

@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "EMPLEADOS")
 public class Empleado {
 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long empId;
 
@@ -32,6 +31,5 @@ public class Empleado {
 
     @Column
     private String clave;
-
 
 }
