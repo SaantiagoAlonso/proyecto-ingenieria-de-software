@@ -105,6 +105,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -141,21 +142,25 @@ public class ControladorEmpleado {
     @GetMapping("/empleado/cerrar-cita/{idCita}")
     public String cerrarCita (@PathVariable("idCita") Long id, Model model){
         try {
-            // Obtiene la cita con el ID proporcionado
             CitaDto cita = servicioCita.obtenerCita(id);
-            // Añade la cita al modelo para que pueda ser accesible en la vista
             model.addAttribute("cita", cita);
-            // Cierra la cita
             servicioCita.CerrarCita(modelMapper.map(cita, Cita.class));
-            // Obtiene el empleado asociado a la cita
             EmpleadoDto empleado = cita.getEmpleado();
             if (empleado != null)
-                // Si el empleado no es null, añade su ID al modelo
                 model.addAttribute("empleadoId", empleado.getEmpId());
-            // Redirige al usuario a la página cita-terminada
             return "cita-terminada";
         } catch (ResourceNotFoundException e) {
-            // Si no se encuentra la cita, redirige al usuario a la página index
+            return "index";
+        }
+    }
+    @PostMapping("/empleado/cerrar-citas/{idCita}")
+    public String cerrarCitas (@PathVariable("idCita") Long id, Model model){
+        try {
+            CitaDto cita = servicioCita.obtenerCita(id);
+            model.addAttribute("cita", cita);
+            servicioCita.CerrarCita(modelMapper.map(cita, Cita.class));
+            return "cita-terminada";
+        } catch (ResourceNotFoundException e) {
             return "index";
         }
     }
@@ -164,21 +169,12 @@ public class ControladorEmpleado {
         try {
             CitaDto cita = servicioCita.obtenerCita(id);
             model.addAttribute("cita", cita);
-            return "transcurso-cita"; // Nombre de la vista de Thymeleaf
+            return "transcurso-cita";
         } catch (ResourceNotFoundException e) {
-            // Manejar el caso en que cita no se encuentra
-            // Por ejemplo, redirigir a una página de error
             return "error";
         }
     }
 
-
-    /*@PostMapping("/empleado/transcurso-cita/{idCita}")
-    public String transcursoCita(@PathVariable("idCita") Long id, Model model) {
-        Cita cita = repoCita.getReferenceById(id);
-        model.addAttribute("cita", cita);
-        return "redirect:/empleado/cerrar-cita/" + id;
-    }*/
     @PostMapping("/empleado/transcurso-cita/{idCita}")
     public String transcursoCita(@PathVariable("idCita") Long id, Model model,@RequestParam("observaciones") String observaciones) {
         Cita cita = repoCita.getReferenceById(id);
@@ -189,24 +185,16 @@ public class ControladorEmpleado {
         return "redirect:/empleado/cerrar-cita/" + id;
     }
 
-    /*@PostMapping("/empleado/transcurso-cita")
-    public String transcursoCita(@ModelAttribute("cita") CitaDto cita, Model model) {
-        Cita citaActualizada = servicioCita.actualizar(cita);
-        model.addAttribute("cita", cita);
-        Long id = citaActualizada.getId();
-        return "redirect:/empleado/cerrar-cita/" + id;
-    }*/
-
     @GetMapping("/empleado/portal-empleado/{id}")
     public String portalEmpleado(@PathVariable("id") Long id, Model model) {
-        List<Cita> citas = repoCita.findByEmpleado_EmpId(id);
+        List<Cita> citas = repoCita.findByEmpleado_EmpIdAndEstado(id,"pendiente");
         model.addAttribute("citas", citas);
         model.addAttribute("empleadoId", id);
         return "portal-empleado";
     }
     @GetMapping("/empleado/{id}")
     public ResponseEntity<List<Cita>> citasPendientes(@PathVariable Long id) {
-        List<Cita> citas = repoCita.findByEmpleado_EmpId(id);
+        List<Cita> citas = repoCita.findByEmpleado_EmpIdAndEstado(id, "pendiente");
         return ResponseEntity.ok(citas);
     }
     @PostMapping("/empleado/llamado-en-sala/{id}")

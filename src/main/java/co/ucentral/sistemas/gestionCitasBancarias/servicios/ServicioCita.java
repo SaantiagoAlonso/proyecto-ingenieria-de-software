@@ -9,20 +9,22 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-
 import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundException;
 
 @Service
 @RequiredArgsConstructor
 public class ServicioCita implements OperacionesCita {
 
-    @Autowired
     ModelMapper modelMapper;
-    @Autowired
     RepoCita repoCita;
+
+    @Autowired
+    public ServicioCita(ModelMapper modelMapper, RepoCita repoCita) {
+        this.modelMapper = modelMapper;
+        this.repoCita = repoCita;
+    }
 
 
     @Override
@@ -52,8 +54,7 @@ public class ServicioCita implements OperacionesCita {
 
     @Override
     public Cita actualizar(CitaDto citaDto) {
-        Cita citaActualizada = repoCita.save(modelMapper.map(citaDto, Cita.class));
-        return citaActualizada;
+        return repoCita.save(modelMapper.map(citaDto, Cita.class));
     }
 
     @Override
@@ -68,7 +69,7 @@ public class ServicioCita implements OperacionesCita {
     }
     @Override
     public List<CitaDto> obtenerCitasPorEmpleado(long identificacion) {
-        List<Cita> citas = repoCita.findByEmpleado_EmpId(identificacion);
+        List<Cita> citas = repoCita.findByEmpleado_EmpIdAndEstado(identificacion, "pendiente");
         return modelMapper.map(citas, new TypeToken<List<CitaDto>>(){}.getType());
     }
 }

@@ -28,6 +28,5 @@ public interface RepoCita extends JpaRepository<Cita, Long>, JpaSpecificationExe
 
 
     List<Cita> findByEmpleado_EmpId(long emp_id);
-
-
+    List<Cita> findByEmpleado_EmpIdAndEstado(long emp_id, String estado);
 }
