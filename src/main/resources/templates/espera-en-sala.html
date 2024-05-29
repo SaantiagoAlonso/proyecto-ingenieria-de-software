@@ -57,17 +57,18 @@
         // Si el temporizador se agota, cierra la cita
         // Comprueba si idCita es null antes de hacer la solicitud fetch
         if (idCita) {
-            fetch(`/empleado/cerrar-cita/${idCita}`, {
+            fetch(`/empleado/cerrar-citas/${idCita}`, {
                 method: 'POST'
             }).then(response => {
                 if (response.ok) {
                     alert("La cita ha sido cerrada debido a inactividad");
+                    window.location.replace(`/empleado/cerrar-cita/${idCita}`);
                 } else {
                     alert("Hubo un error al intentar cerrar la cita");
                 }
+            }).catch(error => {
+                console.error('Hubo un problema con la operación fetch: ', error);
             });
-        } else {
-            alert("Error: ID de cita no encontrado");
         }
     }
 </script>
