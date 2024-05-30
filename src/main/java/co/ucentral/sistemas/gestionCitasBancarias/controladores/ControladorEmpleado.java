@@ -138,6 +138,7 @@ public class ControladorEmpleado {
         return "index";
     }
 
+
     @GetMapping("/empleado/cerrar-cita/{idCita}")
     public String cerrarCita (@PathVariable("idCita") Long id, Model model){
         try {
@@ -159,13 +160,15 @@ public class ControladorEmpleado {
             return "index";
         }
     }
+
     @PostMapping("/empleado/cerrar-citas/{idCita}")
-    public String cerrarCitas (@PathVariable("idCita") Long id, Model model){
+    public String cerrarCitas (@PathVariable("idCita") Long id, @RequestParam("comentarios") String comentarios, Model model){
         try {
             CitaDto cita = servicioCita.obtenerCita(id);
             model.addAttribute("cita", cita);
+            cita.setComentarios(comentarios); // Añade los comentarios a la cita
             servicioCita.CerrarCita(modelMapper.map(cita, Cita.class));
-            return "cita-terminada";
+            return "redirect:/empleado/portal-empleado/" + cita.getEmpleado().getEmpId();
         } catch (ResourceNotFoundException e) {
             return "index";
         }

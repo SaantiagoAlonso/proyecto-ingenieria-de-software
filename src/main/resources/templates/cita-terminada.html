@@ -41,6 +41,11 @@
 <p>empleado: <span th:text="${cita.empleado.nombre}"></span></p>
 <p>Servicio: <span th:text="${cita.servicio}"></span></p>
 
-<a th:href="@{/empleado/portal-empleado/{id}(id=${cita.empleado.empId})}">Volver al portal del empleado</a>
+<form th:action="@{/empleado/cerrar-citas/{idCita}(idCita=${cita.id})}" method="post">
+    <textarea id="comentarios" name="comentarios" rows="4" cols="50" th:text="${cita.comentarios}" th:value="${cita.comentarios}">
+
+    </textarea>
+    <input type="submit" value="Volver al portal del empleado">
+</form>
 </body>
 </html>
