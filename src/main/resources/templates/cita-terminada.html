@@ -4,18 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cerrar Cita</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <h1>Cerrar Cita</h1>
 <p>La cita ha finalizado. A continuación, se muestran los datos de la cita:</p>
 
 <p>Turno: <span th:text="${cita.turno}"></span></p>
-<p>Sede: <span th:text="${cita.sede.nombre}"></span></p> <!-- Asegúrate de que 'sede' tiene un atributo 'nombre' -->
+<p>Sede: <span th:text="${cita.sede.nombre}"></span></p>
 <p>Fecha: <span th:text="${cita.fecha}"></span></p>
-<p>Hora: <span th:text="${cita.hora}"></span></p>
-<p>empleado: <span th:text="${cita.empleado}"></span></p>
+<p>Cliente: <span th:text="${cita.id_cliente.nombre}"></span></p>
+<p>C.C: <span th:text="${cita.id_cliente.identificacion}"></span></p>
+<p>empleado: <span th:text="${cita.empleado.nombre}"></span></p>
 <p>Servicio: <span th:text="${cita.servicio}"></span></p>
 
-<a th:href="@{/empleado/portal-empleado/{id}(id=${cita.empleado.empId})}">Volver al portal del empleado</a>
+<form th:action="@{/empleado/cerrar-citas/{idCita}(idCita=${cita.id})}" method="post">
+    <textarea id="comentarios" name="comentarios" rows="4" cols="50" th:text="${cita.comentarios}" th:value="${cita.comentarios}">
+
+    </textarea>
+    <input type="submit" value="Volver al portal del empleado">
+</form>
 </body>
 </html>

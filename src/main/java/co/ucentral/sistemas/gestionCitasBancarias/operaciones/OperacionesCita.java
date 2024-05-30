@@ -23,4 +23,6 @@ public interface OperacionesCita {
     void CerrarCita(Cita cita);
 
     List<CitaDto> obtenerCitasPorEmpleado(long identificacion);
+
+    Cita guardarCita(Cita cita);
 }

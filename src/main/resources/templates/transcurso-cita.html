@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transcurso de cita</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        p {
+            color: #666;
+        }
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <h1>Cita en progreso</h1>
 <form th:action="@{/empleado/transcurso-cita/{idCita}(idCita=${cita.id})}" method="post" th:object="${cita}">
-<!--<form th:action="@{/empleado/transcurso-cita}" method="post" th:object="${cita}">-->
     <label>Datos de la cita: </label><br>
     <p>Nombre del cliente: <span th:text="${cita.id_cliente.nombre}"></span></p>
     <p>C.C del cliente: <span th:text="${cita.id_cliente.identificacion}"></span></p>
@@ -16,14 +54,9 @@
     <p>Turno: <span th:text="${cita.turno}"></span></p>
     <p>Sede: <span th:text="${cita.sede.nombre}"></span></p>
     <p>Fecha: <span th:text="${cita.fecha}"></span></p>
-    <p>Hora: <span th:text="${cita.hora}"></span></p>
     <p>Servicio: <span th:text="${cita.servicio}"></span></p>
     <label for="observaciones">Observaciones:</label><br>
-    <!--<textarea id="observaciones" name="observaciones" rows="4" cols="50" th:field="*{comentarios}"></textarea><br><br>-->
-    <!--<input id="observaciones" name="observaciones" rows="4" cols="50" th:field="*{comentarios}"></input>-->
     <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea><br><br>
-    <br><br>
-    <!--<input type="submit" value="Terminar cita">-->
     <button type="submit" class="btn btn-primary ">Terminar cita</button>
 </form>
 </body>
