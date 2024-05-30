@@ -116,8 +116,7 @@ public class ControladorCliente {
         String correo = cita.getId_cliente().getCorreo();
         servicioCliente.enviarCorreo(correo,structuraCorreo);
 
-        //System.out.println(cita.toString());
-        return "index";
+        return "redirect:/";
     }
 
 

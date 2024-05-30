@@ -68,8 +68,12 @@ public class ServicioCita implements OperacionesCita {
     }
     @Override
     public List<CitaDto> obtenerCitasPorEmpleado(long identificacion) {
-        List<Cita> citas = repoCita.findByEmpleado_EmpId(identificacion);
+        List<Cita> citas = repoCita.findByEmpleado_EmpIdAndEstado(identificacion, "pendiente");
         return modelMapper.map(citas, new TypeToken<List<CitaDto>>(){}.getType());
+    }
+    @Override
+    public Cita guardarCita(Cita cita) {
+        return repoCita.save(cita);
     }
 }
 
