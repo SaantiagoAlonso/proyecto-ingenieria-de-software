@@ -12,19 +12,12 @@ import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoCliente;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoEmpleado;
 import co.ucentral.sistemas.gestionCitasBancarias.repositorios.RepoSede;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-
-import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import co.ucentral.sistemas.gestionCitasBancarias.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -76,10 +69,8 @@ public class ServicioCliente implements Operaciones {
         long identidad = newCliente.getIdentificacion();
         if(!repoCliente.findById(identidad).isPresent()){
             repoCliente.save(newCliente);
-            System.out.println("se guardo cliente");
             return 0;
         }else{
-            System.out.println(newCliente.getIdentificacion());
             return 1;
         }
 
@@ -101,8 +92,6 @@ public class ServicioCliente implements Operaciones {
             horaActual = horaActual.plusMinutes(minutosIntervalo);
         }
 
-        //List<LocalTime> disponiblies = new ArrayList<>(horas);
-
         List<Time> resultTimes = repoCita.listarDisponibilidad(fecha, servicio, sede.getId_sede());
 
         if (resultTimes == null) {
@@ -114,7 +103,6 @@ public class ServicioCliente implements Operaciones {
             if (time != null) {
                 localTimes.add(time.toLocalTime());
             }
-            //localTimes.add(time.toLocalTime());
         }
 
 

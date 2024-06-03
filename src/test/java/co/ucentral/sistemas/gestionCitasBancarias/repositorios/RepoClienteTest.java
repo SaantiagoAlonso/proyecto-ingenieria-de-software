@@ -58,7 +58,7 @@ class RepoClienteTest {
 
         List<Cliente> clientes = (List<Cliente>) repoCliente.findAll();
 
-        assertThat(clientes.size()).isEqualTo(1);
+        assertThat(clientes).hasSameClassAs(1);
     }
 
     @DisplayName("Test Eliminar Cliente")

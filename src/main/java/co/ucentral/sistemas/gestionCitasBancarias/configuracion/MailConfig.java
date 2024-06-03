@@ -16,11 +16,6 @@ public class MailConfig {
         mailSender.setPort(587);
         mailSender.setUsername("ssntiagocastillo@gmail.com");
         mailSender.setPassword("ngiw vnna iurm aqnd");
-
-        // Configure additional properties if needed
-        /*Properties props = javaMailSender.getJavaMailProperties();
-        props.put("mail.smtp.starttls.enable", "true");*/
-
         mailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", "true");
 
 

@@ -3,12 +3,9 @@ package co.ucentral.sistemas.gestionCitasBancarias.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Data
 @Getter

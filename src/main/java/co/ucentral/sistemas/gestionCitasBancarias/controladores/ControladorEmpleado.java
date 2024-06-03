@@ -135,7 +135,7 @@ public class ControladorEmpleado {
         if (loginExitoso) {
             return "redirect:/empleado/portal-empleado/" + empleado.getEmpId();
         }
-        return "index";
+        return "redirect:/";
     }
 
 
@@ -188,7 +188,6 @@ public class ControladorEmpleado {
     public String transcursoCita(@PathVariable("idCita") Long id, Model model,@RequestParam("observaciones") String observaciones) {
         Cita cita = repoCita.getReferenceById(id);
         cita.setComentarios(observaciones);
-        System.out.println("lo que se genera" + cita.toString());
         servicioCita.CerrarCita(cita);
         model.addAttribute("cita", cita);
         return "redirect:/empleado/cerrar-cita/" + id;
